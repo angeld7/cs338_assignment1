@@ -14,7 +14,14 @@
       -------------
       Running It
       -------------
-
+		Program 1:
+		make program1
+		
+		Program 2:
+		make program2
+		
+		Program 3:
+		make program3
 
 
 	-------------
