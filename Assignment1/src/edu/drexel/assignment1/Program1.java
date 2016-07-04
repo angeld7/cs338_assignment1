@@ -13,32 +13,19 @@ public class Program1 {
         JFrame frame = new JFrame("Program 1");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Outermost panel split into four quadrants
-        JPanel outerPanel = new JPanel(new GridLayout(2, 2));
+        //Outermost panel is a horizontal box layout
+        JPanel outerPanel = new JPanel(new BorderLayout(5, 5));
 
-        //Top left quadrant
-        JPanel topLeftPanel = new JPanel();
-        topLeftPanel.setLayout(new BoxLayout(topLeftPanel, BoxLayout.X_AXIS));
+        //left panel
+        JPanel leftPanel = new JPanel();
+        setupLeftPanel(leftPanel);
 
-        //Top right quadrant
-        JPanel topRightPanel = new JPanel(new GridLayout(2,2));
+        //right panel
+        JPanel rightPanel = new JPanel();
+        setupRightPanel(rightPanel);
 
-        //Bottom left quadrant
-        JPanel bottomLeftPanel = new JPanel(new GridLayout(2, 2));
-
-        //Bottom right quadrant
-        JPanel bottomRightPanel = new JPanel();
-        bottomRightPanel.setLayout(new BoxLayout(bottomRightPanel, BoxLayout.X_AXIS));
-
-        setupTopLeftQuadrant(topLeftPanel);
-        setupTopRightQuadrant(topRightPanel);
-        setupBottomLeftQuadrant(bottomLeftPanel);
-        setupBottomRightQuadrant(bottomRightPanel);
-
-        outerPanel.add(topLeftPanel);
-        outerPanel.add(topRightPanel);
-        outerPanel.add(bottomLeftPanel);
-        outerPanel.add(bottomRightPanel);
+        outerPanel.add(leftPanel, BorderLayout.WEST);
+        outerPanel.add(rightPanel, BorderLayout.CENTER);
 
         frame.getContentPane().add(outerPanel);
 
@@ -48,44 +35,116 @@ public class Program1 {
         frame.setVisible(true);
     }
 
-    private static void setupTopLeftQuadrant(JPanel topLeftPanel) {
-        //There is nothing in ths quadrant
+    private static void setupLeftPanel(JPanel leftPanel) {
+        leftPanel.setLayout(new BorderLayout());
+
+        JPanel innerPanel = new JPanel(new GridBagLayout());
+        innerPanel.setAlignmentX(Component.BOTTOM_ALIGNMENT);
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+
+        JLabel label = new JLabel("Label");
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        innerPanel.add(label, constraints);
+
+
+        JButton button1 = new JButton("Button1");
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        innerPanel.add(button1, constraints);
+
+        JLabel longLabel = new JLabel("LongLabel");
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        innerPanel.add(longLabel, constraints);
+
+        JButton b2 = new JButton("B2");
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        innerPanel.add(b2, constraints);
+
+        JButton b3 = new JButton("B3");
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        innerPanel.add(b3, constraints);
+
+//        leftPanel.add(Box.createVerticalGlue());
+        leftPanel.add(innerPanel, BorderLayout.SOUTH);
     }
 
-    private static void setupTopRightQuadrant(JPanel topRightPanel) {
+    private static void setupRightPanel(JPanel rightPanel) {
+        rightPanel.setLayout(new BorderLayout(5, 5));
 
+        JPanel topButtonPanel = createSevenButtonPanel();
+        JPanel bottButtonPanel = createAdvancedButtonPanel();
+
+        rightPanel.add(topButtonPanel, BorderLayout.CENTER);
+        rightPanel.add(bottButtonPanel, BorderLayout.SOUTH);
     }
 
-    private static void setupBottomLeftQuadrant(JPanel bottomLeftPanel) {
-        Label label = new Label("Label");
-        Button button1 = new Button("Button1");
-        Label longLabel = new Label("LongLabel");
+    private static JPanel createAdvancedButtonPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
-        JPanel smallButtonPanel = new JPanel();
-        smallButtonPanel.setLayout(new BoxLayout(smallButtonPanel,BoxLayout.X_AXIS));
-        Button b2 = new Button("B2");
-        Button b3 = new Button("B3");
+        JButton help = new JButton("Help");
+        JButton advanced = new JButton("Advanced");
+        JButton ok = new JButton("OK");
+        JButton cancel = new JButton("Cancel");
 
-        smallButtonPanel.add(b2);
-        smallButtonPanel.add(b3);
+        panel.add(help);
+        panel.add(Box.createHorizontalGlue());
+        panel.add(advanced);
+        panel.add(Box.createHorizontalGlue());
+        panel.add(ok);
+        panel.add(cancel);
 
-        bottomLeftPanel.add(label);
-        bottomLeftPanel.add(button1);
-        bottomLeftPanel.add(longLabel);
-        bottomLeftPanel.add(smallButtonPanel);
+        return panel;
     }
 
-    private static void setupBottomRightQuadrant(JPanel bottomRightPanel) {
+    private static JPanel createSevenButtonPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 3));
+        panel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
+        JPanel leftPanel = new JPanel(new GridLayout(2, 1));
+
+        JPanel middlePanel = new JPanel(new BorderLayout());
+
+        JPanel rightPanel = new JPanel(new GridLayout(2, 1));
+
+        JButton one = new JButton("1");
+        JButton two = new JButton("2");
+        JButton three = new JButton("3");
+        JButton four = new JButton("4");
+        JButton five = new JButton("5");
+        JButton six = new JButton("6");
+        JButton seven = new JButton("7");
+
+        leftPanel.add(one);
+        leftPanel.add(two);
+
+        middlePanel.add(three, BorderLayout.NORTH);
+        middlePanel.add(four, BorderLayout.CENTER);
+        middlePanel.add(five, BorderLayout.SOUTH);
+
+        rightPanel.add(six);
+        rightPanel.add(seven);
+
+        panel.add(leftPanel);
+        panel.add(middlePanel);
+        panel.add(rightPanel);
+        return panel;
     }
 
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        javax.swing.SwingUtilities.invokeLater(() ->
+                createAndShowGUI()
+        );
     }
 
 
