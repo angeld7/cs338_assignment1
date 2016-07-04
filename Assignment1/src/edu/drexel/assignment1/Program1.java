@@ -33,6 +33,8 @@ public class Program1 {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     private static void setupLeftPanel(JPanel leftPanel) {

@@ -67,7 +67,7 @@ public class Program2 {
     }
 
     private void setupLayout() {
-        JFrame frame = new JFrame("Program 1");
+        JFrame frame = new JFrame("Program 2");
         frame.setPreferredSize(new Dimension(250, 150));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -96,6 +96,8 @@ public class Program2 {
 
         //Display the window.
         frame.pack();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
