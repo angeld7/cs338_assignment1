@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Created by Angel on 7/4/2016.
+ * Angel Delgado
+ * ald363@drexel.edu
+ * CS338: GUI, Assignment 1
  */
 public class Program2 {
 
@@ -19,9 +21,12 @@ public class Program2 {
     private JTextField lowerTextField;
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() ->
-                new Program2().createAndShowGUI()
-        );
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Program2().createAndShowGUI();
+            }
+        });
     }
 
     private void createAndShowGUI() {

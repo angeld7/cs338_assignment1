@@ -3,12 +3,15 @@ package edu.drexel.assignment1;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Date;
 
 /**
- * Created by Angel on 7/4/2016.
+ * Angel Delgado
+ * ald363@drexel.edu
+ * CS338: GUI, Assignment 1
  */
 public class Program3 implements KeyListener {
 
@@ -22,9 +25,12 @@ public class Program3 implements KeyListener {
     private long lastKeyPressStart = 0;
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() ->
-                new Program3().createAndShowGUI()
-        );
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Program3().createAndShowGUI();
+            }
+        });
     }
 
     private void createAndShowGUI() {
@@ -37,13 +43,14 @@ public class Program3 implements KeyListener {
         label = new JLabel(LABEL_PREFIX + "Unknown");
         textField = new JTextField();
         textField.addKeyListener(this);
-        textField.addActionListener((ActionEvent e) -> {
-            label.setText(LABEL_PREFIX + (totalKeyPressTime / numOfKeyPresses) + " ms");
-            textField.setText("");
-            totalKeyPressTime = 0;
-            numOfKeyPresses = 0;
-            frame.pack();
-        });
+        textField.addActionListener((new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Calculate the average hold time by dividing to total hold time by the number of key presses
+                label.setText(LABEL_PREFIX + (totalKeyPressTime / numOfKeyPresses) + " ms");
+                frame.pack();
+            }
+        }));
 
         outerPanel.add(label);
         outerPanel.add(textField);
@@ -65,12 +72,15 @@ public class Program3 implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //Get the time that this key was initially pressed down
         lastKeyPressStart = new Date().getTime();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        //The number of times a key has been pressed and an accumulated total of hold times is stored
         numOfKeyPresses++;
+        //Calculate the hold time of this key press and add it to the total
         totalKeyPressTime += new Date().getTime() - lastKeyPressStart;
     }
 }

@@ -4,10 +4,40 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Problem 1 of Assignment 1 in CS 338
- * Created by Angel Delgado on 6/24/2016.
+ * Angel Delgado
+ * ald363@drexel.edu
+ * CS338: GUI, Assignment 1
  */
 public class Program1 {
+
+    /**
+     * The window will be structured the following way
+     * Border Layout
+     *      West
+     *          Border Layout
+     *              South
+     *                  GridBagLayout
+     *                      label, button1, label, longLabel, b2, b3
+     *      Center
+     *          BorderLayout
+     *              Center
+     *                  GridLayout (1 row, 3 columns)
+     *                      GridLayout(2 rows, 1 column)
+     *                          buttons 1 and 2
+     *                      BorderLayout
+     *                          North
+     *                              button 3
+     *                          Center
+     *                              button 4
+     *                          South
+     *                              button 5
+     *                      GridLayout(2 rows, 1 column)
+     *                          buttons 6and 7
+     *              South
+     *                  BoxLayout (x-axis)
+     *                      help, glue, advanced, glue, ok, cancel
+     */
+
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("Program 1");
@@ -144,9 +174,12 @@ public class Program1 {
 
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() ->
-                createAndShowGUI()
-        );
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                createAndShowGUI();
+            }
+        });
     }
 
 
