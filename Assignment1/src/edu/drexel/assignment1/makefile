@@ -11,4 +11,4 @@ clean :
 	$(JAVAC) $<
 
 program1: all
-	java ./Program1
+	java -classpath . Program1
