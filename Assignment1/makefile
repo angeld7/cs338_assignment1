@@ -1,21 +1,11 @@
-JFLAGS = -g
-JC = javac
-.SUFFIXES: .java .class
-.java.class:
-    $(JC) $(JFLAGS) $*.java
+JAVAC=javac
+sources = $(wildcard *.java)
+classes = $(sources:.java=.class)
 
-CLASSES = \
-    src/edu/drexel/assignment1/Program1.java \
-    src/edu/drexel/assignment1/Program2.java \
-    src/edu/drexel/assignment1/Program3.java
+all: $(classes)
 
-default: classes
+clean :
+	rm -f *.class
 
-classes: $(CLASSES:.java=.class)
-
-program1: classes
-program2: classes
-program3: classes
-
-clean:
-    $(RM) *.class
+%.class : %.java
+	$(JAVAC) $<
