@@ -9,3 +9,6 @@ clean :
 
 %.class : %.java
 	$(JAVAC) $<
+
+program1: all
+	java Program1
